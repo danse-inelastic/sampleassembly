@@ -18,6 +18,7 @@ PROJECT = tests/sampleassembly
 BUILD_DIRS = \
     saxml \
     visitors \
+    predefined \
 
 OTHER_DIRS = \
 

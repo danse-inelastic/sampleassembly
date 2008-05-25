@@ -12,11 +12,34 @@
 #
 
 
-from ElementContainer import ElementContainer
+from ElementContainer import ElementContainer, typeFromName
 from _journal import debug
 
 
-class SampleAssembly( ElementContainer ):
+#A sample assembly is a component (element) in a neutron instrument.
+#We call that component "sample" in the instrument package.
+#In order for a sample assembly to be an element in instruments,
+#we need it to be a subclass of the "Sample" class of instrument
+#package.
+#Is there a better way to make this statement?
+from instrument.elements.Sample import Sample as base
+
+class SampleAssembly( ElementContainer, base ):
+
+    '''Sample assembly
+
+    A sample assembly represents everything installed on the sample
+    position of an instrument. It is a container of sample, sample holder,
+    and maybe furnace, and more.
+
+    A sample assembly is assumed to be installed at a fixed position
+    and orientation in the instrument. That position and orientation
+    is defined by convention, and is fixed for an instrument. 
+    For an experiment done in that instrument, we may want to
+    rotate or move sample or other things in the assembly, and that
+    should be done with the geometer associated with this sample
+    assembly.
+    '''
 
     allowed_item_types = [
         'PowderSample',
@@ -30,17 +53,51 @@ class SampleAssembly( ElementContainer ):
         
 
     def __init__( self, name, shape = None, **attributes):
-        """ Sample ctor
-"""
+        """ Sample assembly ctor
+        """
+        #this implementation is a bit weird.
+        #should we inherit from instrument.Sample only?
+        base.__init__(
+            self, name, shape = shape, **attributes)
         ElementContainer.__init__(
             self, name, shape = shape, **attributes)
+        self._sample = None
         return
 
 
     def identify( self, visitor):
         return visitor.onSampleAssembly( self)
 
+
+    def addSample(self, sample):
+        '''add sample to this assembly
+        '''
+        if self._sample:
+            raise RuntimeError, "there is already a sample"
+        self._sample = sample
+        self.addElement( sample )
+        return
+
+
+    def getOrientation(self, scatterer):
+        geometer = self._getGeometer()
+        return geometer.orientation( scatterer )
+
+
+    def getSampleOrientation(self):
+        return self.getOrientation( self.getSample() )
+
+
+    def getSample(self): return self._sample
+        
+
+    def _getGeometer(self):
+        try: return self.geometer
+        except AttributeError:
+            raise RuntimeError, "sample assembly needs a geometer"
+        
     pass # end of SampleAssembly
+
 
 
 

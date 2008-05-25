@@ -7,13 +7,13 @@
 ##
 
 def geometer(
-    target, local_geometers,
+    target, local_geometers = None,
     registry_coordinate_system = "InstrumentScientist",
     **kwds ):
     
     cs = coordinateSystem( registry_coordinate_system )
-    from GloabalGeometer import GloabalGeometer
-    return GloabalGeometer(
+    from GlobalGeometer import GlobalGeometer
+    return GlobalGeometer(
         target, local_geometers, registry_coordinate_system = cs, **kwds )
 
 

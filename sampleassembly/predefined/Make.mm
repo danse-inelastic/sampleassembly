@@ -34,7 +34,9 @@ tidy::
 # export
 
 EXPORT_PYTHON_MODULES = \
+	SampleAssembly.py \
 	VanadiumPlate.py \
+	shapes.py \
 	units.py \
 	__init__.py \
 

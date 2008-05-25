@@ -12,21 +12,19 @@
 #
 
 
-#this should be a simple subclass of SampleAssembly. For now let us only focus
-#on providing a reasonable interface.
-
-
 import units
 mm = units.length.mm
 cm = units.length.cm
 degree = units.angle.degree
 
 
-class VanadiumPlate:
+from SampleAssembly import SampleAssembly as base
+
+class VanadiumPlate(base):
 
 
     def __init__(self, name = 'vanadiumPlate', 
-                 width = None, height = None, thickness = None, 
+                 width = None, height = None, thickness = None,
                  darkAngle = None):
         '''create a vanadium plate sample
         
@@ -42,18 +40,33 @@ class VanadiumPlate:
         self.height = height
         self.thickness = thickness
         self.darkAngle = darkAngle
+
+        import shapes
+        plate = shapes.plate( width, height, thickness )
+        from sampleassembly.elements import powdersample
+        #should not we have crystalline info here?
+        sample = powdersample( name, shape = plate)
+        
+        base.__init__(self, name, shape = plate)
+        self.addSample( sample )
+
+        #set up geometer
+        from sampleassembly.geometers import geometer
+        geometer  = geometer(self, registry_coordinate_system = 'InstrumentScientist')
+        geometer.register( sample, (0,0,0), (0*degree,0*degree,darkAngle) )
+        self.geometer = geometer
         return
 
 
     def dimensions(self): return self.width, self.height, self.thickness
 
 
-    def setDarkAngle(self, darkAngle):
-        #this is a temporary implementation.
-        #later this class should be a subclass of SampleAssembly
-        #and this method should be reimplemented
-        self.darkAngle = darkAngle
-        return
+##     def setDarkAngle(self, darkAngle):
+##         #this is a temporary implementation.
+##         #later this class should be a subclass of SampleAssembly
+##         #and this method should be reimplemented
+##         self.darkAngle = darkAngle
+##         return
     
 
 

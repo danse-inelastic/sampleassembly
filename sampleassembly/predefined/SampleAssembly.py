@@ -11,10 +11,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-def vanadiumPlate( *args, **kwds ):
-    from VanadiumPlate import VanadiumPlate
-    return VanadiumPlate( *args, **kwds )
-
+from sampleassembly.elements.SampleAssembly import SampleAssembly
 
 # version
 __id__ = "$Id$"

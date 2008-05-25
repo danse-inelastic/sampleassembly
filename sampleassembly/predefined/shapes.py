@@ -4,17 +4,14 @@
 #
 #                                   Jiao Lin
 #                      California Institute of Technology
-#                        (C) 2007  All Rights Reserved
+#                        (C) 2008  All Rights Reserved
 #
 # {LicenseText}
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-def vanadiumPlate( *args, **kwds ):
-    from VanadiumPlate import VanadiumPlate
-    return VanadiumPlate( *args, **kwds )
-
+from instrument.geometry.shapes import *
 
 # version
 __id__ = "$Id$"

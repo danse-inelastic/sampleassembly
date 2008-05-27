@@ -45,6 +45,14 @@ class LocationRegistry(object):
         return
 
 
+    def update(self, element, offset, orientation, relative = None):
+        if not self._registry.has_key( element ):
+            raise RuntimeError, 'element %s has not been registered before' % element
+
+        self._registry[ element ] = relative, offset, orientation
+        return
+    
+
     def registered(self, element):
         return self._registry.get(element) is not None
 

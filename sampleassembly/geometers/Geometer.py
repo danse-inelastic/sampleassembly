@@ -99,6 +99,16 @@ class Geometer( AbstractGeometer ):
         return
 
 
+    def reregister( self, element, offset, orientation, relative = None):
+        offset = remove_unit_of_vector( offset, self.length_unit )
+        orientation = remove_unit_of_vector( orientation, self.angle_unit )
+        self._registry.update(
+            element, offset, orientation, relative = relative)
+        if self._registration_is_done:
+            self._recalculate()
+        return        
+
+
     def request_coordinate_system(self): return self._request_coordinate_system
     def registry_coordinate_system(self): return self._registry_coordinate_system
 
@@ -115,6 +125,17 @@ class Geometer( AbstractGeometer ):
         return offset, orientation
 
 
+    def _recalculate(self):
+        self._clear_cache()
+        self.finishRegistration()
+        return
+
+
+    def _clear_cache(self):
+        self._abs_pos_oris = {}
+        return
+
+    
     def _abs_pos_ori_in_registry_coordinate_system( self, element):
         'abolute position and orientation in the registry coordinate system'
         if element is self.target: return (0,0,0), (0,0,0)
@@ -229,6 +250,40 @@ class Geometer_TestCase(TestCase):
         self.assertAlmostEqual( monitor2pos[0], 0 )
         self.assertAlmostEqual( monitor2pos[1], 0 )
         self.assertAlmostEqual( monitor2pos[2], -1 )
+        return
+
+
+    def test4(self):
+        "Geometer: reregister"
+        import elements
+        instrument = elements.instrument( "instrument" )
+        moderator = elements.moderator( 'moderator', 100., 100., 10. )
+        instrument.addElement(moderator)            
+        monitor1 = elements.monitor( 'monitor1', 100., 100., 10. ) 
+        instrument.addElement( monitor1 )
+        monitor2 = elements.monitor( 'monitor2', 100., 100., 10. ) 
+        instrument.addElement( monitor2 )
+        geometer = Geometer( instrument )
+        geometer.register( moderator, (0,0,-5), (0,0,0) )
+        geometer.register( monitor1, (0,0,-3), (0,0,0) )
+        geometer.register( monitor2, (0,0,2), (0,0,0), relative = monitor1 )
+        geometer.finishRegistration()
+
+        monitor1pos = geometer.position( monitor1 ) / meter
+        self.assertAlmostEqual( monitor1pos[0], 0 )
+        self.assertAlmostEqual( monitor1pos[1], 0 )
+        self.assertAlmostEqual( monitor1pos[2], -3 )
+
+        monitor2pos = geometer.position( monitor2 ) / meter
+        self.assertAlmostEqual( monitor2pos[0], 0 )
+        self.assertAlmostEqual( monitor2pos[1], 0 )
+        self.assertAlmostEqual( monitor2pos[2], -1 )
+
+        geometer.reregister( monitor1, (0,0,0), (0,0,0) )
+        monitor2pos = geometer.position( monitor2 ) / meter
+        self.assertAlmostEqual( monitor2pos[0], 0 )
+        self.assertAlmostEqual( monitor2pos[1], 0 )
+        self.assertAlmostEqual( monitor2pos[2], 2 )
         return
 
     pass # end of Geometer_TestCase

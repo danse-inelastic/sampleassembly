@@ -90,6 +90,17 @@ class GlobalGeometer( AbstractGlobalGeometer ):
         return
 
 
+    def reregister(self, element, offset, orientation, relative=None):
+        if relative is None:
+            try: parent = element.parent()
+            except: parent = self.target
+            relative = parent
+        local_geometer = self._getLocalGeometer( relative )
+        local_geometer.reregister( element, offset, orientation, relative )
+        self._clear_cache()
+        return
+
+
     def finishRegistration( self ):
         for geometer in self._local_geometers.values():
             geometer.finishRegistration()
@@ -137,6 +148,11 @@ class GlobalGeometer( AbstractGlobalGeometer ):
             self._request_coordinate_system,
             )
         return offset, orientation
+
+
+    def _clear_cache(self):
+        self._cache = {}
+        return
 
 
     def _abs_pos_ori_in_registry_coordinate_system( self, element):
@@ -529,6 +545,39 @@ class GlobalGeometer_TestCase(TestCase):
         self.assertAlmostEqual( pos[1], 3 )
         self.assertAlmostEqual( pos[2], 1 )
         
+        return
+
+
+    def test6(self):
+        ''' GlobalGeometer: reregister
+        '''
+        import elements
+        
+        instrument = elements.ElementContainer( "instrument" )
+        
+        moderator = elements.moderator( "moderator", 100., 100., 10. ) 
+        instrument.addElement( moderator )
+
+        from CoordinateSystem import McStasCS, InstrumentScientistCS
+        instrumentGeomter = GlobalGeometer(
+            instrument,
+            registry_coordinate_system = InstrumentScientistCS)
+
+        instrumentGeomter.register( moderator, (0,0,3), (0,0,0) )
+
+        instrumentGeomter.finishRegistration()
+        
+        pos = instrumentGeomter.position( moderator ) / meter
+        
+        self.assertAlmostEqual( pos[0], 0 )
+        self.assertAlmostEqual( pos[1], 0 )
+        self.assertAlmostEqual( pos[2], 3 )
+
+        instrumentGeomter.reregister( moderator, (0,0,5), (0,0,0) )
+        pos = instrumentGeomter.position( moderator ) / meter
+        self.assertAlmostEqual( pos[0], 0 )
+        self.assertAlmostEqual( pos[1], 0 )
+        self.assertAlmostEqual( pos[2], 5 )
         return
 
 

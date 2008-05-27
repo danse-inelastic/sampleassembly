@@ -61,12 +61,10 @@ class VanadiumPlate(base):
     def dimensions(self): return self.width, self.height, self.thickness
 
 
-##     def setDarkAngle(self, darkAngle):
-##         #this is a temporary implementation.
-##         #later this class should be a subclass of SampleAssembly
-##         #and this method should be reimplemented
-##         self.darkAngle = darkAngle
-##         return
+    def setDarkAngle(self, darkAngle):
+        self.darkAngle = darkAngle
+        self.geometer.reregister( self.getSample(), (0,0,0), (0*degree,0*degree,darkAngle) )
+        return
     
 
 

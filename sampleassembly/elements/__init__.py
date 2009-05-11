@@ -25,6 +25,11 @@ def powdersample( *args, **kwds ):
     return PowderSample( *args, **kwds )
 
 
+def crystal(*args, **kwds):
+    from Crystal import Crystal
+    return Crystal(*args, **kwds)
+
+
 def atom( *args, **kwds ):
     """create an atom
     

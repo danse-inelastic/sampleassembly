@@ -15,7 +15,8 @@
 class CrossSectionCalculator:
 
 
-    def __call__(self, scatterer):
+    def __call__(self, scatterer, include_density=True):
+        self.include_density = include_density
         return scatterer.identify(self)
 
 
@@ -40,16 +41,22 @@ class CrossSectionCalculator:
         abs = sum( [ atom.average_neutron_abs_xs for atom in atoms ] )
         coh = sum( [ atom.average_neutron_coh_xs for atom in atoms ] )
         inc = sum( [ atom.average_neutron_inc_xs for atom in atoms ] )
+        ret = N.array( [abs, inc, coh] )
 
-        #volumn of unit cell
-        v = volume( * unitcell.getCellVectors() )
         import units
         barn = units.area.barn
-        A = units.length.angstrom
+        ret = ret*barn
 
-        unit = barn / A**3
+        if not self.include_density:
+            return ret
         
-        return N.array( [abs, inc, coh] )/v * unit
+        #volumn of unit cell
+        v = volume( * unitcell.getCellVectors() )
+        A = units.length.angstrom
+        unit = A**3
+        ret = ret/(v*unit)
+        
+        return ret
 
     #end of CrossSectionCalculator
 

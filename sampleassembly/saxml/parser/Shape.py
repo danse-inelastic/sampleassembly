@@ -40,6 +40,7 @@ class Shape(Node):
 
     onUnion = on_
     onCylinder = onBlock = on_
+    onHollowCylinder = on_
 
     pass # end of Shape
     

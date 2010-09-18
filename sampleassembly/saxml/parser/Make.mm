@@ -30,6 +30,7 @@ EXPORT_PYTHON_MODULES = \
 	Cylinder.py \
 	Document.py \
 	GlobalGeometer.py \
+	HollowCylinder.py \
 	LocalGeometer.py \
 	Phase.py \
 	PowderSample.py \

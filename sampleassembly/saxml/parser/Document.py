@@ -32,6 +32,7 @@ class Document(DocumentNode):
 
         'Shape',
         'Cylinder', 'Block',
+        'HollowCylinder',
         ]
 
 

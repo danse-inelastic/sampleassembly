@@ -43,7 +43,16 @@ class Phase(Node):
 
     def onXYZfile(self, xyzfile):
         from sampleassembly.crystal.ioutils import xyzfile2unitcell
-        self.element.unitcell = xyzfile2unitcell( xyzfile )
+        try:
+            self.element.unitcell = xyzfile2unitcell( xyzfile )
+        except:
+            import traceback
+            tb = traceback.format_exc()
+            marker = '*'*60
+            msg = "Unable to parse xyz file %s. traceback:\n%s\n%s\n%s" % (
+                xyzfile, marker, tb, marker)
+            raise RuntimeError, msg
+                
         return
 
 

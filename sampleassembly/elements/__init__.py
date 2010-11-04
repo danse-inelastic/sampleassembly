@@ -51,8 +51,9 @@ def unitcell( *args, **kwds ):
     cellvectors = [ (1,0,0), (0,1,0), (0,0,1) ]
     uc = unitcell( cellvectors, atoms, positions )
     '''
-    from crystal.UnitCell import create_unitcell
-    return create_unitcell( *args, **kwds )
+    # from crystal.UnitCell import create_unitcell
+    from matter import Structure
+    return Structure( *args, **kwds )
 
 
 # version

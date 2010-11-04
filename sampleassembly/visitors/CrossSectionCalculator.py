@@ -36,7 +36,8 @@ class CrossSectionCalculator:
 
     def onUnitCell(self, unitcell):
         #atoms
-        atoms = unitcell.getAtoms()
+        # atoms = unitcell.getAtoms()
+        atoms = unitcell[:]
         #
         abs = sum( [ atom.average_neutron_abs_xs for atom in atoms ] )
         coh = sum( [ atom.average_neutron_coh_xs for atom in atoms ] )
@@ -51,7 +52,8 @@ class CrossSectionCalculator:
             return ret
         
         #volumn of unit cell
-        v = volume( * unitcell.getCellVectors() )
+        # v = volume( * unitcell.getCellVectors() )
+        v = volume( * unitcell.lattice.base )
         A = units.length.angstrom
         unit = A**3
         ret = ret/(v*unit)

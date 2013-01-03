@@ -19,8 +19,8 @@ from pyre.units.length import m
 import unittest
 
 
-from unittestX import TestCase
-class parser_TestCase(TestCase):
+from unittestX import TestCase as base
+class TestCase(base):
 
 
     def test0(self):
@@ -40,13 +40,29 @@ class parser_TestCase(TestCase):
         return
 
 
-    pass # end of parser_TestCase
+    def test1(self):
+        """
+        sampleassembly.saxml.parser: with sample environment
+        """
+        from sampleassembly.saxml import parse_file
+        sampleassembly = parse_file( 'Ni-withenviron.xml' )
+        env = sampleassembly.getEnvironment()
+        print env
+        print env.attributes.temperature
+        # print type(env.attributes.temperature)
+        from pyre.units import temperature as T
+        print env.attributes.temperature/T.K
+        print env.temperature()
+        return
+
+
+    pass # end of TestCase
 
 
 import unittest
 
 def pysuite():
-    suite1 = unittest.makeSuite(parser_TestCase)
+    suite1 = unittest.makeSuite(TestCase)
     return unittest.TestSuite( (suite1,) )
 
 

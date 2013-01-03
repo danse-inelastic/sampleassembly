@@ -23,6 +23,7 @@ class SampleAssembly(AbstractNode):
     from sampleassembly.elements.SampleAssembly import SampleAssembly as ElementFactory
 
     onPowderSample = AbstractNode.onElement
+    onEnvironment = AbstractNode.onElement
 
     def notify(self, parent):
         document = self.document

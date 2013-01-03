@@ -20,6 +20,7 @@ class Document(DocumentNode):
 
     tags = [
         "SampleAssembly",
+        'Environment',
         'PowderSample',
 
         'Phase',

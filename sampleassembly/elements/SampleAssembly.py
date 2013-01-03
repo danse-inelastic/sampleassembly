@@ -43,6 +43,7 @@ class SampleAssembly( ElementContainer, base ):
 
     allowed_item_types = [
         'PowderSample',
+        'Environment',
         ]    
 
     class Attributes(ElementContainer.Attributes):
@@ -89,6 +90,14 @@ class SampleAssembly( ElementContainer, base ):
 
 
     def getSample(self): return self._sample
+
+
+    def getEnvironment(self):
+        from .Environment import Environment
+        for elem in self.elements():
+            if isinstance(elem, Environment):
+                return elem
+        return
         
 
     def _getGeometer(self):

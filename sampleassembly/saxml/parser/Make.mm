@@ -29,6 +29,7 @@ EXPORT_PYTHON_MODULES = \
 	ChemicalFormula.py \
 	Cylinder.py \
 	Document.py \
+	Environment.py \
 	GlobalGeometer.py \
 	HollowCylinder.py \
 	LocalGeometer.py \

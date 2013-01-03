@@ -30,6 +30,7 @@ EXPORT_PYTHON_MODULES = \
 	Crystal.py \
 	Element.py \
 	ElementContainer.py \
+	Environment.py \
 	IdGenerator.py \
 	Phase.py \
 	PowderSample.py \

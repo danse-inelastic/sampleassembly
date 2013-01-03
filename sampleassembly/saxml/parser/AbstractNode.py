@@ -23,12 +23,40 @@ import urllib
 class XMLFormatError(Exception): pass
 
 
-class AbstractNode(Node):
+# the implementation here is not very elegant.
+# the abstract node class is implemented as two classes,
+# in order for different elements to subclass from different bases.
+# we should have better names for these two classes.
+
+class AbstractNodeBase(Node):
+
+    def notify(self, parent):
+        return self.element.identify( parent )
+
+
+    def content(self, content):
+        debug.log( "content=%s" % content )
+        content = content.strip()
+        if len(content)==0: return
+        self.element.appendContent( urllib.unquote(content).strip() )
+        self.locator = self.document.locator
+        return
+
+
+    def onElement(self, element):
+        self.element.addElement( element )
+        return
+
+    pass
+
+
+
+class AbstractNode(AbstractNodeBase):
 
     ElementFactory = None # overload this to provide factory method of creating element
 
     def __init__(self, document, attributes):
-        Node.__init__(self, document)
+        super(AbstractNode, self).__init__(document)
 
         try:
             name = attributes['name']
@@ -37,7 +65,7 @@ class AbstractNode(Node):
             raise XMLFormatError, \
                   "Element does not have the 'name' attribute."\
                   "Element type: %s" % (
-                self.__class__.__name__ )
+                self.__class__)
 
         # convert to dictionary
         attrs = {}
@@ -63,27 +91,6 @@ class AbstractNode(Node):
         #sampleassembly.guidRegistry.register( self.element.guid(), self.element )
         
         return
-
-
-    def notify(self, parent):
-        return self.element.identify( parent )
-
-
-    def content(self, content):
-        debug.log( "content=%s" % content )
-        content = content.strip()
-        if len(content)==0: return
-        self.element.appendContent( urllib.unquote(content).strip() )
-        self.locator = self.document.locator
-        return
-
-
-    def onElement(self, element):
-        self.element.addElement( element )
-        return
-
-    pass
-
 
 
 def isSampleAssembly( element ):

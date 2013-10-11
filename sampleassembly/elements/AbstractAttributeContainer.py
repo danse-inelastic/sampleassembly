@@ -24,6 +24,11 @@ class AbstractAttributeContainer( object):
         return
     
 
+    def has( self, name):
+        """has( name) -> True/False"""
+        raise NotImplementedError, msg%(self.__class__.__name__, 'has')
+
+
     def get( self, name):
         """get( name) -> value"""
         raise NotImplementedError, msg%(self.__class__.__name__, 'get')

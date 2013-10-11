@@ -28,7 +28,11 @@ class AttributeContainer( Inventory, AbstractAttributeContainer ):
     def get(self, name):
         exec "value = self.%s" % name
         return value
-
+    
+    
+    def has(self, name):
+        return name in self.propertyNames()
+    
 
     def __iter__(self):
         props = self.propertyNames()

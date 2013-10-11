@@ -49,7 +49,12 @@ class SampleAssembly( ElementContainer, base ):
     class Attributes(ElementContainer.Attributes):
 
         import Attribute
-        
+        max_multiplescattering_loops_among_scatterers = Attribute.int(
+            'max_multiplescattering_loops_among_scatterers', 
+            default = 5)
+        max_multiplescattering_loops_interactM_path1 = Attribute.int(
+            'max_multiplescattering_loops_interactM_path1',
+            default = 2)
         pass
         
 

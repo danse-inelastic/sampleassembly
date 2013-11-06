@@ -38,11 +38,12 @@ def atom( *args, **kwds ):
     atom( 'Fe' )
     atom( 'Fe', 57 )
     """
-    from crystal.Atom import atom
-    return atom(*args, **kwds )
+    from matter import Atom
+    return Atom(*args, **kwds )
 
 
-def unitcell( *args, **kwds ):
+# def unitcell( *args, **kwds ):
+def unitcell(cellvectors, atoms, positions):
     '''
     Fe = atom( symbol='Fe', mass = 57)
     Al = atom( symbol='Al')
@@ -52,8 +53,15 @@ def unitcell( *args, **kwds ):
     uc = unitcell( cellvectors, atoms, positions )
     '''
     # from crystal.UnitCell import create_unitcell
-    from matter import Structure
-    return Structure( *args, **kwds )
+    from matter.Structure import Structure
+    from matter.Lattice import Lattice
+    base = cellvectors
+    lattice = Lattice(base=base)
+    atomlist = [
+        atom(a, xyz=pos)
+        for a, pos in zip(atoms, positions)
+        ]
+    return Structure(atoms, lattice)
 
 
 # version

@@ -14,7 +14,7 @@
 
 from elements import sampleassembly, powdersample
 from elements import atom, unitcell
-from visitors import cross_sections
+from visitors import cross_sections, compute_absorption_and_scattering_coeffs
 
 
 # version

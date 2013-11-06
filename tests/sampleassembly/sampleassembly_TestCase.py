@@ -28,22 +28,22 @@ class sampleassembly_TestCase(TestCase):
         Fe = atom('Fe')
         atoms = [Fe]
         cellvectors = [
-            [1,0,0],
-            [0,1,0],
-            [0,0,1],
+            [1.,0,0],
+            [0,1.,0],
+            [0,0,1.],
             ]
         
         positions = [ [0,0,0] ]
-
+        
         uc = unitcell( cellvectors, atoms, positions )
-
+        
         xtal = crystal( unitcell = uc )
 
-        from sampleassembly import cross_sections
-        abs, inc, coh = cross_sections( xtal )
+        from sampleassembly import compute_absorption_and_scattering_coeffs
+        abs, inc, coh = compute_absorption_and_scattering_coeffs( xtal )
         print abs, inc, coh
         return
-
+    
     pass # end of sampleassembly_TestCase
 
 

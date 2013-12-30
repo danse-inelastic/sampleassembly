@@ -55,6 +55,9 @@ class SampleAssembly( ElementContainer, base ):
         max_multiplescattering_loops_interactM_path1 = Attribute.int(
             'max_multiplescattering_loops_interactM_path1',
             default = 2)
+        min_neutron_probability = Attribute.float(
+            'min_neutron_probability',
+            default = 0.)
         pass
         
 

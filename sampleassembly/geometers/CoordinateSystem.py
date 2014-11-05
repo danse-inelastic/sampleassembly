@@ -47,21 +47,17 @@ InstrumentScientistCS = CoordinateSystem(
 def InstrumentScientistCS2McStasCS( position, orientation ):
     x,y,z = position
     positionMcStas = y,z,x
-
     rx, ry, rz = orientation
-
-    #the matrix of rotation is no different among
-    #coordinate systems.
-    #here we calculate the rotation matrix first, and
-    #then convert the rotation matrix to the rotation angles.
-    from rotateVector import toMatrix, toAngles, dot
-    rotationM = dot(
-        toMatrix( 0, rz, 0, unit='deg'),
-        dot(toMatrix( ry, 0, 0, unit='deg'),
-            toMatrix( 0,0, rx, unit='deg') ),
-        )
-
-    rotationMcStas = toAngles( rotationM, unit='deg' )
+    from .rotateVector import toMatrix, toAngles, dot
+    import numpy as np
+    M = toMatrix(rx,ry,rz, unit='deg')
+    S = [[0,0,1.],
+         [1,0,0],
+         [0,1,0]]
+    S = np.array(S)
+    M1 = dot(S.T, dot(M, S))
+    from .mcstasRotations import toAngles
+    rotationMcStas = toAngles(M1.T, unit='deg' )
     return positionMcStas, rotationMcStas
 
 

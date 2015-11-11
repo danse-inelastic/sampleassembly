@@ -38,7 +38,7 @@ def atom( *args, **kwds ):
     atom( 'Fe' )
     atom( 'Fe', 57 )
     """
-    from matter import Atom
+    from danse.ins.matter import Atom
     return Atom(*args, **kwds )
 
 
@@ -53,8 +53,8 @@ def unitcell(cellvectors, atoms, positions):
     uc = unitcell( cellvectors, atoms, positions )
     '''
     # from crystal.UnitCell import create_unitcell
-    from matter.Structure import Structure
-    from matter.Lattice import Lattice
+    from danse.ins.matter import Structure
+    from danse.ins.matter import Lattice
     base = cellvectors
     lattice = Lattice(base=base)
     atomlist = [

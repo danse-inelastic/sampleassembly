@@ -1,7 +1,7 @@
 #
 set(PACKAGE_NAME "sampleassembly")
 
-if("${BUILDING_MCVINE}" streq "")
+if("${BUILDING_MCVINE}" STREQUAL "")
   set(VERSION "0.1")
   set(AUTHOR "Jiao Lin")
   set(AUTHOR_EMAILE "jiao.lin@gmail.com")

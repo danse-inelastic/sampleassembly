@@ -1,41 +1,44 @@
 #
 set(PACKAGE_NAME "sampleassembly")
-set(VERSION "0.1")
-set(AUTHOR "Jiao Lin")
-set(AUTHOR_EMAILE "jiao.lin@gmail.com")
-set(VENDOR "DANSE")
-set(SUMMARY "Sample assembly representation")
-set(LICENSE "BSD")
-set(RPM_APP_GROUP "Development/Tools")
-set(GITHUB_URL "https://github.com/danse-inelastic/sampleassembly")
-# this is released with danse.ins packages
-set(DEP_DANSE_PKGS "danse.ins")
 
-#
-cmake_minimum_required (VERSION 2.8)
-project (${PACKAGE_NAME})
+if("${BUILDING_MCVINE}" streq "")
+  set(VERSION "0.1")
+  set(AUTHOR "Jiao Lin")
+  set(AUTHOR_EMAILE "jiao.lin@gmail.com")
+  set(VENDOR "DANSE")
+  set(SUMMARY "Sample assembly representation")
+  set(LICENSE "BSD")
+  set(RPM_APP_GROUP "Development/Tools")
+  set(GITHUB_URL "https://github.com/danse-inelastic/sampleassembly")
+  # this is released with danse.ins packages
+  set(DEP_DANSE_PKGS "danse.ins")
 
-# get cmake_utils
-execute_process(
-  COMMAND rm -rf cmake_utils
-  COMMAND git clone https://github.com/danse-inelastic/cmake_utils
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-  )
-set(CMAKE_MODULE_PATH ${PROJECT_BINARY_DIR}/cmake_utils)
+  #
+  cmake_minimum_required (VERSION 2.8)
+  project (${PACKAGE_NAME})
 
-# utils
-include(System) # system info
-include(Dirs)   # directory structure
-include(TestUtils)
+  # get cmake_utils
+  execute_process(
+    COMMAND rm -rf cmake_utils
+    COMMAND git clone https://github.com/danse-inelastic/cmake_utils
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+  set(CMAKE_MODULE_PATH ${PROJECT_BINARY_DIR}/cmake_utils)
 
-# needs python
-find_package ( PythonLibs REQUIRED )
-find_package ( PythonInterp REQUIRED )
-# python installation path
-set(INSTALL_PY_PATH "${INSTALL_LIB_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages")
+  # utils
+  include(System) # system info
+  include(Dirs)   # directory structure
+  include(TestUtils)
 
-#
-enable_testing()
+  # needs python
+  find_package ( PythonLibs REQUIRED )
+  find_package ( PythonInterp REQUIRED )
+  # python installation path
+  set(INSTALL_PY_PATH "${INSTALL_LIB_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages")
+
+  #
+  enable_testing()
+endif()
 
 # python
 file(

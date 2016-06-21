@@ -33,7 +33,7 @@ class Document(DocumentNode):
 
         'Shape',
         'Cylinder', 'Block', 'Sphere',
-        'HollowCylinder',
+        'HollowCylinder', 'SphereShell',
         ]
 
 

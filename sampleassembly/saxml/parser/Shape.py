@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 #
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-#                                 Jiao Lin   
-#                      California Institute of Technology
-#                      (C)   2007    All Rights Reserved
-#
-# <LicenseText>
-#
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Jiao Lin <jiao.lin@gmail.com>
 #
 
 
@@ -39,14 +31,10 @@ class Shape(Node):
         return
 
     onUnion = on_
-    onCylinder = onBlock = on_
+    onSphere = onCylinder = onBlock = on_
     onHollowCylinder = on_
 
     pass # end of Shape
     
-
-
-# version
-__id__ = "$Id: Geometer.py,v 1.1.1.1 2005/03/08 16:13:43 linjiao Exp $"
 
 # End of file 

@@ -34,6 +34,8 @@ class Document(DocumentNode):
         'Shape',
         'Cylinder', 'Block', 'Sphere',
         'HollowCylinder', 'SphereShell',
+
+        'Rotation',
         ]
 
 

@@ -34,7 +34,7 @@ class Shape(Node):
     onSphere = onCylinder = onBlock = on_
     onSphereShell = onHollowCylinder = on_
 
-    onRotation = on_
+    onRotation = onTranslation = on_
 
     pass # end of Shape
     

@@ -36,6 +36,7 @@ class Document(DocumentNode):
         'HollowCylinder', 'SphereShell',
 
         'Rotation', 'Translation',
+        'Union'
         ]
 
 

@@ -35,6 +35,7 @@ class Shape(Node):
     onSphereShell = onHollowCylinder = on_
 
     onRotation = onTranslation = on_
+    onUnion = on_
 
     pass # end of Shape
     

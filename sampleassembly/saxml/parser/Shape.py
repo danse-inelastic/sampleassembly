@@ -31,7 +31,7 @@ class Shape(Node):
         return
 
     onUnion = on_
-    onSphere = onCylinder = onBlock = on_
+    onSphere = onCylinder = onBlock = onPyramid = on_
     onSphereShell = onHollowCylinder = on_
 
     onRotation = onTranslation = onDilation = on_

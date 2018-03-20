@@ -31,6 +31,8 @@ class TestCase(base):
         sampleassembly = parse_file( 'Ni.xml' )
         geometer = sampleassembly.local_geometer
         Ni_powder = sampleassembly.elements()[0]
+        shape = Ni_powder.shape()
+        assert shape.__class__.__name__ == 'Union', len(shape.shapes)==3
         phase = Ni_powder.phase
         self.assertEqual( phase.__class__.__name__, 'Crystal' )
         self.assertEqual( phase.chemical_formula, 'Ni' )

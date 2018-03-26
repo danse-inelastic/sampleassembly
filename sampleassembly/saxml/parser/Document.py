@@ -35,6 +35,7 @@ class Document(DocumentNode):
         'Cylinder', 'Block', 'Sphere', 'Pyramid',
         'HollowCylinder', 'SphereShell',
 
+        'Angle', 'Axis', 'Vector',
         'Rotation', 'Translation', 'Dilation',
         'Union', 'Intersection', 'Difference',
         ]

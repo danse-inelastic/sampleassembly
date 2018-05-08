@@ -13,10 +13,9 @@
 
 
 import numpy as N
-from danse.ins import matter
 
 def read( filename ):
-    from danse.ins.matter.Parsers import getParser
+    from diffpy.Structure.Parsers import getParser
     p = getParser('xyz')
     return p.parseFile(filename)
 

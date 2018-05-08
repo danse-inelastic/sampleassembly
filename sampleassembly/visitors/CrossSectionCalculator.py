@@ -39,9 +39,9 @@ class CrossSectionCalculator:
         # atoms = unitcell.getAtoms()
         atoms = unitcell[:]
         #
-        abs = sum( [ atom.average_neutron_abs_xs for atom in atoms ] )
-        coh = sum( [ atom.average_neutron_coh_xs for atom in atoms ] )
-        inc = sum( [ atom.average_neutron_inc_xs for atom in atoms ] )
+        abs = sum( [ xs(atom, 'absorption') for atom in atoms ] )
+        coh = sum( [ xs(atom, 'coherent') for atom in atoms ] )
+        inc = sum( [ xs(atom, 'incoherent') for atom in atoms ] )
         ret = N.array( [abs, inc, coh] )
 
         import units
@@ -62,6 +62,11 @@ class CrossSectionCalculator:
 
     #end of CrossSectionCalculator
 
+
+import periodictable
+def xs(atom, type):
+    elem = getattr(periodictable, atom.element)
+    return getattr(elem.neutron, type)
 
 def volume( a, b, c ):
     return N.dot( a, N.cross(b,c) )

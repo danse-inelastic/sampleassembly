@@ -41,6 +41,12 @@ class sampleassembly_TestCase(TestCase):
 
         from sampleassembly import compute_absorption_and_scattering_coeffs
         abs, inc, coh = compute_absorption_and_scattering_coeffs( xtal )
+
+        from mcni import units;  parser = units.parser()
+        meter = parser.parse('meter')
+        self.assertAlmostEqual(abs*meter, 256)
+        self.assertAlmostEqual(inc*meter, 40)
+        self.assertAlmostEqual(coh*meter, 1122)
         print abs, inc, coh
         return
     

@@ -13,11 +13,10 @@
 
 
 import numpy as N
-from danse.ins import matter
 
 def read( filename ):
-    from danse.ins.matter.Parsers import getParser
-    p = getParser('xyz')
+    from .P_xyz import P_xyz
+    p = P_xyz()
     return p.parseFile(filename)
 
 

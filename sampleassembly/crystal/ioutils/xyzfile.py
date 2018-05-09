@@ -15,8 +15,8 @@
 import numpy as N
 
 def read( filename ):
-    from diffpy.Structure.Parsers import getParser
-    p = getParser('xyz')
+    from .P_xyz import P_xyz
+    p = P_xyz()
     return p.parseFile(filename)
 
 

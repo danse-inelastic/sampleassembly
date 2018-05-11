@@ -52,7 +52,20 @@ class Phase(Node):
             msg = "Unable to parse xyz file %s. traceback:\n%s\n%s\n%s" % (
                 xyzfile, marker, tb, marker)
             raise RuntimeError, msg
-                
+        return
+
+
+    def onCIFfile(self, ciffile):
+        from sampleassembly.crystal.ioutils import ciffile2unitcell
+        try:
+            self.element.unitcell = ciffile2unitcell( ciffile )
+        except:
+            import traceback
+            tb = traceback.format_exc()
+            marker = '*'*60
+            msg = "Unable to parse cif file %s. traceback:\n%s\n%s\n%s" % (
+                ciffile, marker, tb, marker)
+            raise RuntimeError, msg
         return
 
 

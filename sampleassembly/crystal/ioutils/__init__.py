@@ -1,14 +1,5 @@
 #!/usr/bin/env python
 #
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-#                                   Jiao Lin
-#                      California Institute of Technology
-#                        (C) 2007  All Rights Reserved
-#
-# {LicenseText}
-#
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
 
@@ -16,7 +7,9 @@ def xyzfile2unitcell( filename ):
     from xyzfile import read
     return read(filename)
 
-# version
-__id__ = "$Id$"
+def ciffile2unitcell(filename):
+    from diffpy.Structure.Parsers import getParser
+    p = getParser('cif')
+    return p.parseFile(filename)
 
 # End of file 

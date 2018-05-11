@@ -25,7 +25,7 @@ class Document(DocumentNode):
 
         'Phase',
         'ChemicalFormula',
-        'xyzfile',
+        'xyzfile', 'ciffile',
 
         'LocalGeometer',
         'Register',

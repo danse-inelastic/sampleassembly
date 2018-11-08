@@ -32,7 +32,7 @@ class Document(DocumentNode):
         'GlobalGeometer',
 
         'Shape',
-        'Cylinder', 'Block', 'Sphere', 'Pyramid',
+        'Cylinder', 'Block', 'Sphere', 'Pyramid', 'Cone',
         'HollowCylinder', 'SphereShell',
 
         'Angle', 'Axis', 'Vector',

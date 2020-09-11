@@ -47,7 +47,7 @@ class sampleassembly_TestCase(TestCase):
         self.assertAlmostEqual(abs*meter, 256)
         self.assertAlmostEqual(inc*meter, 40)
         self.assertAlmostEqual(coh*meter, 1122)
-        print abs, inc, coh
+        print(abs, inc, coh)
         return
     
     pass # end of sampleassembly_TestCase

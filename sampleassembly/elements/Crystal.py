@@ -12,7 +12,7 @@
 #
 
 
-from Phase import Phase
+from .Phase import Phase
 class Crystal(Phase):
 
     def __init__(self, chemical_formula = None, unitcell = None):

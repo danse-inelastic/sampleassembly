@@ -12,8 +12,8 @@
 #
 
 
-from Element import Element
-from _journal import debug
+from .Element import Element
+from ._journal import debug
 from pyre.units.temperature import K
 
 
@@ -24,7 +24,7 @@ class Environment( Element ):
 
     class Attributes(Element.Attributes):
 
-        import Attribute
+        from . import Attribute
         temperature = Attribute.dimensional('temperature', default=300*K)
         pass
         

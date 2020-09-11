@@ -12,7 +12,7 @@
 #
 
 
-from Parser import Parser
+from .Parser import Parser
 default_parser = Parser()
 
 
@@ -21,7 +21,7 @@ def parse( stream ): return default_parser.parse( stream )
 def parse_file( filename ): return parse( open( filename ) )
 
 
-from Renderer import Renderer
+from .Renderer import Renderer
 default_renderer = Renderer()
 def render( sampleassembly, renderer = None ):
     '''render(sampleassembly) --> text of the xml file
@@ -59,7 +59,7 @@ def weave( sampleassembly, stream = None ):
         stream = sys.stdout
         pass
 
-    print >> stream, '\n'.join( render(sampleassembly) )
+    print('\n'.join( render(sampleassembly) ), file=stream)
     return
 
 

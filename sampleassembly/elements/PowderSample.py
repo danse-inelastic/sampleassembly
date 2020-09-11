@@ -12,8 +12,8 @@
 #
 
 
-from Element import Element
-from _journal import debug
+from .Element import Element
+from ._journal import debug
 
 
 class PowderSample( Element ):
@@ -23,7 +23,7 @@ class PowderSample( Element ):
 
     class Attributes(Element.Attributes):
 
-        import Attribute
+        from . import Attribute
         # need more attributes here
         pass
         

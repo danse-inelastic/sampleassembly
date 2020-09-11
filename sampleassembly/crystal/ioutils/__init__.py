@@ -4,7 +4,7 @@
 
 
 def xyzfile2unitcell( filename ):
-    from xyzfile import read
+    from .xyzfile import read
     return read(filename)
 
 def ciffile2unitcell(filename):

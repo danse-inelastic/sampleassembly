@@ -12,7 +12,7 @@
 #
 
 
-from ElementContainer import ElementContainer
+from .ElementContainer import ElementContainer
 from debug import debug
 
 
@@ -24,7 +24,7 @@ class Scatterer( ElementContainer ):
 
     class Attributes(Element.Attributes):
 
-        import Attribute
+        from . import Attribute
 
         pass
         

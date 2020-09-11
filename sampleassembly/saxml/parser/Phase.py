@@ -23,7 +23,7 @@ class Phase(Node):
 
         # convert to dictionary
         attrs = {}
-        for k,v in attributes.items(): attrs[str(k)] = v
+        for k,v in list(attributes.items()): attrs[str(k)] = v
 
         type = attrs['type']
         from sampleassembly.elements import phases
@@ -51,7 +51,7 @@ class Phase(Node):
             marker = '*'*60
             msg = "Unable to parse xyz file %s. traceback:\n%s\n%s\n%s" % (
                 xyzfile, marker, tb, marker)
-            raise RuntimeError, msg
+            raise RuntimeError(msg)
         return
 
 
@@ -65,7 +65,7 @@ class Phase(Node):
             marker = '*'*60
             msg = "Unable to parse cif file %s. traceback:\n%s\n%s\n%s" % (
                 ciffile, marker, tb, marker)
-            raise RuntimeError, msg
+            raise RuntimeError(msg)
         return
 
 

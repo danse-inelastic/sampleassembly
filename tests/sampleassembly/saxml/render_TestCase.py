@@ -26,7 +26,7 @@ class renderer_TestCase(TestCase):
         from sampleassembly.saxml import render, parse_file
         sampleassembly = parse_file( 'Ni.xml' )
         text = render( sampleassembly )
-        print >> open('Ni.xml.rendered','w'),  '\n'.join(text) 
+        print('\n'.join(text), file=open('Ni.xml.rendered','w')) 
         return
 
 

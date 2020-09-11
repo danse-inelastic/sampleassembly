@@ -12,7 +12,7 @@ def geometer(
     **kwds ):
     
     cs = coordinateSystem( registry_coordinate_system )
-    from GlobalGeometer import GlobalGeometer
+    from .GlobalGeometer import GlobalGeometer
     return GlobalGeometer(
         target, local_geometers, registry_coordinate_system = cs, **kwds )
 
@@ -20,18 +20,18 @@ def geometer(
 def local_geometer( target, registry_coordinate_system = 'InstrumentScientist',
               **kwds ):
     cs = coordinateSystem( registry_coordinate_system )
-    from Geometer import Geometer
+    from .Geometer import Geometer
     return Geometer( target, registry_coordinate_system = cs, **kwds )
 
 
 def coordinateSystem( name ):
     '''coordinateSystem(name) --> prebuilt coordinate system of given name
     '''
-    from CoordinateSystem import coordinateSystem
+    from .CoordinateSystem import coordinateSystem
     return coordinateSystem( name )
 
 
-from _journal import debug
+from ._journal import debug
 
 # version
 __id__ = "$Id: __init__.py 1257 2007-09-30 22:55:39Z linjiao $"

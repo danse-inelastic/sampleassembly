@@ -13,7 +13,7 @@
 
 
 def crystal( *args, **kwds ):
-    from Crystal import Crystal
+    from .Crystal import Crystal
     return Crystal( *args, **kwds )
 
 

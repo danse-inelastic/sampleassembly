@@ -44,7 +44,7 @@ class CrossSectionCalculator:
         inc = sum( [ xs(atom, 'incoherent') for atom in atoms ] )
         ret = N.array( [abs, inc, coh] )
 
-        import units
+        from . import units
         barn = units.area.barn
         ret = ret*barn
 

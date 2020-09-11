@@ -250,7 +250,8 @@ class GlobalGeometer( AbstractGlobalGeometer ):
 
 
 # helpers
-def isIdentifier( e ): return isinstance(e, str)
+from .._2to3 import isstr
+def isIdentifier( e ): return isstr(e)
 
 def isIndexTuple( candidate ):
     if not isinstance( candidate, tuple ): return False

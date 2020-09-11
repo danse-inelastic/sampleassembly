@@ -23,7 +23,7 @@ class Phase(Node):
 
         # convert to dictionary
         attrs = {}
-        for k,v in list(attributes.items()): attrs[str(k)] = v
+        for k,v in attributes.items(): attrs[str(k)] = v
 
         type = attrs['type']
         from sampleassembly.elements import phases

@@ -52,7 +52,7 @@ class CrossSectionCalculator_TestCase(TestCase):
         barn = units.area.barn
         angstrom = units.length.angstrom
         self.assertAlmostEqual( abs/barn * angstrom**3, 4.49 )
-        print abs, inc, coh
+        print(abs, inc, coh)
 
         abs, inc, coh = calculator( xtal, include_density=False )
         self.assertAlmostEqual( abs/barn, 4.49 )

@@ -57,7 +57,7 @@ class P_xyz(StructureParser):
                 p_natoms = int(w1)
                 #try to get lattice vectors from description line
                 try:
-                    latticeVecs = map(float, linefields[start+1])
+                    latticeVecs = list(map(float, linefields[start+1]))
                     assert len(latticeVecs)==9
                     reshaped = [latticeVecs[0:3], latticeVecs[3:6], latticeVecs[6:9]]
                     stru.lattice = Lattice(base=reshaped) 
@@ -74,7 +74,7 @@ class P_xyz(StructureParser):
             exc_type, exc_value, exc_traceback = sys.exc_info()
             emsg = ("%d: invalid XYZ format, missing number of atoms" %
                     (start + 1))
-            raise StructureFormatError, emsg, exc_traceback
+            raise StructureFormatError(emsg).with_traceback(exc_traceback)
         # find the last valid record
         stop = len(lines)
         while stop > start and len(linefields[stop-1]) == 0:
@@ -110,7 +110,7 @@ class P_xyz(StructureParser):
         except ValueError:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             emsg = "%d: invalid number format" % p_nl
-            raise StructureFormatError, emsg, exc_traceback
+            raise StructureFormatError(emsg).with_traceback(exc_traceback)
         # finally check if all the atoms have been read
         if p_natoms is not None and len(stru) != p_natoms:
             emsg = "expected %d atoms, read %d" % (p_natoms, len(stru))
@@ -199,11 +199,11 @@ class TestCase(unittest.TestCase):
         atoms = [matter.Atom('Ni'), matter.Atom('Ni', (0.5,0.5,0.5))]
         struct = Structure(lattice=lattice, atoms=atoms) #, sgid=229)
         
-        print 'original unitcell, cartesian coords'
-        print '\n'.join(p.toLines(struct))
+        print('original unitcell, cartesian coords')
+        print('\n'.join(p.toLines(struct)))
         
-        print 'original unitcell, fractional coords'
-        print '\n'.join(p.toLines(struct, use_fractional_coordinates=1, latticeAsDescription=1))
+        print('original unitcell, fractional coords')
+        print('\n'.join(p.toLines(struct, use_fractional_coordinates=1, latticeAsDescription=1)))
 
         # print 'primitive unitcell, cartesian coords'
         # print '\n'.join(p.toLines(struct, use_primitive_unitcell=1))

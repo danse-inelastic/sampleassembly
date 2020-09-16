@@ -51,7 +51,7 @@ class ElementContainer(Element):
                     self.name, identifier )
                 msg += 'The descendent %r is already an element that does not'\
                        ' have children' % (son.name, )
-                raise RuntimeError , msg
+                raise RuntimeError(msg)
             return son
         return son._getDescendent( '/'.join( path[1:] ) )
 
@@ -68,7 +68,7 @@ class ElementContainer(Element):
                     self.name, indexTuple )
                 msg += 'The descendent %r is already an element that does not'\
                        ' have children' % (son.name, )
-                raise RuntimeError , msg
+                raise RuntimeError(msg)
             return son
         return son._getDescendentFromIndexTuple( indexTuple[1:] )
 
@@ -83,7 +83,7 @@ class Copy(object):
         try: return object.__getattribute__( self, name )
         except AttributeError :
             return self.reference.__getattribute__(name)
-        raise RuntimeError , "should not reach here"
+        raise RuntimeError("should not reach here")
 def isCopy(candidate): return isinstance( candidate, Copy )
     
 

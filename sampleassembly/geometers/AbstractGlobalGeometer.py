@@ -12,7 +12,7 @@
 #
 
 
-from _journal import debug
+from ._journal import debug
 
 
 class AbstractGlobalGeometer( object):

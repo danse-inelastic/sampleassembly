@@ -12,8 +12,8 @@
 #
 
 
-from ElementContainer import ElementContainer, typeFromName
-from _journal import debug
+from .ElementContainer import ElementContainer, typeFromName
+from ._journal import debug
 
 
 #A sample assembly is a component (element) in a neutron instrument.
@@ -48,7 +48,7 @@ class SampleAssembly( ElementContainer, base ):
 
     class Attributes(ElementContainer.Attributes):
 
-        import Attribute
+        from . import Attribute
         max_multiplescattering_loops_among_scatterers = Attribute.int(
             'max_multiplescattering_loops_among_scatterers', 
             default = 5)
@@ -82,7 +82,7 @@ class SampleAssembly( ElementContainer, base ):
         '''add sample to this assembly
         '''
         if self._sample:
-            raise RuntimeError, "there is already a sample"
+            raise RuntimeError("there is already a sample")
         self._sample = sample
         self.addElement( sample )
         return
@@ -111,7 +111,7 @@ class SampleAssembly( ElementContainer, base ):
     def _getGeometer(self):
         try: return self.geometer
         except AttributeError:
-            raise RuntimeError, "sample assembly needs a geometer"
+            raise RuntimeError("sample assembly needs a geometer")
         
     pass # end of SampleAssembly
 

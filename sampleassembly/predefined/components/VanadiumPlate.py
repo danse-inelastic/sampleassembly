@@ -13,7 +13,7 @@
 
 
 from pyre.components.Component import Component
-import units
+from . import units
 
 
 class VanadiumPlate(Component):
@@ -70,7 +70,7 @@ class VanadiumPlate(Component):
         try:
             self.darkAngle + angle.degree
         except:
-            raise ValueError , "%s is not an angle" % self.inventory.darkAngle
+            raise ValueError("%s is not an angle" % self.inventory.darkAngle)
         return
 
 

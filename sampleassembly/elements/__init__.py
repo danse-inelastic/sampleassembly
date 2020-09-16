@@ -15,18 +15,18 @@
 def sampleassembly(*args, **kwds):
     '''sampleassembly( name, shape ) --> new sample assembly
     '''
-    from SampleAssembly import SampleAssembly
+    from .SampleAssembly import SampleAssembly
     return SampleAssembly( *args, **kwds )
 
 
 def powdersample( *args, **kwds ):
     '''powdersample( name, shape )'''
-    from PowderSample import PowderSample
+    from .PowderSample import PowderSample
     return PowderSample( *args, **kwds )
 
 
 def crystal(*args, **kwds):
-    from Crystal import Crystal
+    from .Crystal import Crystal
     return Crystal(*args, **kwds)
 
 

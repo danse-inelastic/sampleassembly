@@ -29,7 +29,7 @@ def compute_absorption_and_scattering_coeffs(scatterer):
       where rho is the density.
     '''
     
-    from CrossSectionCalculator import CrossSectionCalculator
+    from .CrossSectionCalculator import CrossSectionCalculator
     calculator = CrossSectionCalculator()
     return calculator(scatterer, include_density=True)
 
@@ -58,7 +58,7 @@ def cross_sections( scatterer, calculator = None, include_density = True):
         return compute_absorption_and_scattering_coeffs(scatterer)
 
     if not calculator:
-        from CrossSectionCalculator import CrossSectionCalculator
+        from .CrossSectionCalculator import CrossSectionCalculator
         calculator = CrossSectionCalculator()
     return calculator(scatterer, include_density=False)
 

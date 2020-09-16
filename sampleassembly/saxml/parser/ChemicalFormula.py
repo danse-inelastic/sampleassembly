@@ -12,8 +12,8 @@
 #
 
 from pyre.xml.Node import Node
-from AbstractNode import debug
-import urllib
+from .AbstractNode import debug
+import urllib.request, urllib.parse, urllib.error
 
 
 class ChemicalFormula(Node):
@@ -33,7 +33,7 @@ class ChemicalFormula(Node):
         debug.log( "content=%s" % content )
         content = content.strip()
         if len(content)==0: return
-        content = urllib.unquote(content).strip()
+        content = urllib.parse.unquote(content).strip()
         self.formula = content
         self.locator = self.document.locator
         return

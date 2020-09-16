@@ -16,7 +16,7 @@ debug = journal.debug("sampleassembly.xmlparser")
 
 
 from pyre.xml.Node import Node
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 
 
@@ -38,7 +38,7 @@ class AbstractNodeBase(Node):
         debug.log( "content=%s" % content )
         content = content.strip()
         if len(content)==0: return
-        self.element.appendContent( urllib.unquote(content).strip() )
+        self.element.appendContent( urllib.parse.unquote(content).strip() )
         self.locator = self.document.locator
         return
 
@@ -61,15 +61,14 @@ class AbstractNode(AbstractNodeBase):
         try:
             name = attributes['name']
         except KeyError:
-            print attributes.keys()
-            raise XMLFormatError, \
-                  "Element does not have the 'name' attribute."\
+            print(list(attributes.keys()))
+            raise XMLFormatError("Element does not have the 'name' attribute."\
                   "Element type: %s" % (
-                self.__class__)
+                self.__class__))
 
         # convert to dictionary
         attrs = {}
-        for k,v in attributes.items(): attrs[str(k)] = v
+        for k,v in list(attributes.items()): attrs[str(k)] = v
         del attrs['name']
 
         # see if we have sampleassembly instance established
@@ -87,7 +86,7 @@ class AbstractNode(AbstractNodeBase):
             document.sampleassembly = sampleassembly = self.element
             pass
         if sampleassembly is None:
-            raise RuntimeError, "Sampleassembly is not yet defined"
+            raise RuntimeError("Sampleassembly is not yet defined")
         #sampleassembly.guidRegistry.register( self.element.guid(), self.element )
         
         return

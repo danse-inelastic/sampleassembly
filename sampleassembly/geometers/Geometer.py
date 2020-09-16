@@ -12,17 +12,17 @@
 #
 
 
-from _journal import debug
+from ._journal import debug
 
 
-from AbstractGeometer import AbstractGeometer
+from .AbstractGeometer import AbstractGeometer
 
 
 from numpy import array
 
 class Geometer( AbstractGeometer ):
 
-    import units
+    from . import units
     length_unit = units.length.meter
     angle_unit = units.angle.degree
 
@@ -41,16 +41,16 @@ class Geometer( AbstractGeometer ):
         AbstractGeometer.__init__(self, target)
 
         if registry_coordinate_system is None:
-            from CoordinateSystem import InstrumentScientistCS
+            from .CoordinateSystem import InstrumentScientistCS
             registry_coordinate_system = InstrumentScientistCS
             pass
         
         self._registry_coordinate_system = registry_coordinate_system
         
-        from LocationRegistry import LocationRegistry
+        from .LocationRegistry import LocationRegistry
         self._registry = LocationRegistry( target, registry_coordinate_system )
 
-        from CoordinateSystem import relative2absolute
+        from .CoordinateSystem import relative2absolute
         self.relative2absolute = relative2absolute[registry_coordinate_system]
         
         self._registration_is_done = False
@@ -91,7 +91,7 @@ class Geometer( AbstractGeometer ):
     def register( self, element, offset, orientation, relative=None):
         if self._registration_is_done:
             msg = "Registration is done. You cannot register more"
-            raise RuntimeError , msg
+            raise RuntimeError(msg)
         offset = remove_unit_of_vector( offset, self.length_unit )
         orientation = remove_unit_of_vector( orientation, self.angle_unit )
         self._registry.register(
@@ -116,7 +116,7 @@ class Geometer( AbstractGeometer ):
         'absolute position and orientation in the request coordinate system'
         offset, orientation = self._abs_pos_ori_in_registry_coordinate_system( element )
         #convert to the request coordinate system
-        from CoordinateSystem import fitCoordinateSystem
+        from .CoordinateSystem import fitCoordinateSystem
         offset, orientation = fitCoordinateSystem(
             (offset, orientation),
             self._registry_coordinate_system,
@@ -151,7 +151,7 @@ class Geometer( AbstractGeometer ):
         if not record:
             msg = "Incomplete registry: %s has not been registered" % (
                 element, )
-            raise RuntimeError, msg
+            raise RuntimeError(msg)
 
         #expand registry record
         relative, offset, orientation = record
@@ -190,14 +190,14 @@ def remove_unit_of_vector( v, unit ):
     assert len(v) == 3
     for i in v:
         if not isinstance(i, float):
-            raise ValueError , "v should have unit of length: %s" %(
-                v, )
+            raise ValueError("v should have unit of length: %s" %(
+                v, ))
         continue
     # this means v already is a unitless vector
     return v
 
 
-import units
+from . import units
 meter = units.length.meter
 import unittest
 
@@ -206,7 +206,7 @@ class Geometer_TestCase(TestCase):
 
     def test1(self):
         "Geometer: simplest instrument"
-        import elements
+        from . import elements
         instrument = elements.instrument( "instrument" )
         geometer = Geometer( instrument )
         geometer.finishRegistration()
@@ -215,7 +215,7 @@ class Geometer_TestCase(TestCase):
 
     def test2(self):
         "Geometer: instrument with one moderator given abs position"
-        import elements
+        from . import elements
         instrument = elements.instrument( "instrument" )
         moderator = elements.moderator( 'moderator', 100., 100., 10. ) 
         instrument.addElement( moderator )
@@ -227,7 +227,7 @@ class Geometer_TestCase(TestCase):
 
     def test3(self):
         "Geometer: instrument with one moderator and monitors given relative position"
-        import elements
+        from . import elements
         instrument = elements.instrument( "instrument" )
         moderator = elements.moderator( 'moderator', 100., 100., 10. )
         instrument.addElement(moderator)            
@@ -255,7 +255,7 @@ class Geometer_TestCase(TestCase):
 
     def test4(self):
         "Geometer: reregister"
-        import elements
+        from . import elements
         instrument = elements.instrument( "instrument" )
         moderator = elements.moderator( 'moderator', 100., 100., 10. )
         instrument.addElement(moderator)            

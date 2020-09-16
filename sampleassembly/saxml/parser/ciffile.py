@@ -3,7 +3,7 @@
 #
 
 from pyre.xml.Node import Node
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 
 class ciffile(Node):
@@ -22,7 +22,7 @@ class ciffile(Node):
     def content(self, content):
         content = content.strip()
         if len(content)==0: return
-        content = urllib.unquote(content).strip()
+        content = urllib.parse.unquote(content).strip()
         self.filename = content
         self.locator = self.document.locator
         return

@@ -12,11 +12,11 @@
 #
 
 
-from _journal import debug
+from ._journal import debug
 
 
-from CoordinateSystem import McStasCS
-import CoordinateSystem
+from .CoordinateSystem import McStasCS
+from . import CoordinateSystem
 
 
 class LocationRegistry(object):
@@ -38,16 +38,16 @@ class LocationRegistry(object):
 
 
     def register( self, element, offset, orientation, relative=None):
-        if self._registry.has_key(element):
-            raise RuntimeError, "you have already registered %s before" % element
+        if element in self._registry:
+            raise RuntimeError("you have already registered %s before" % element)
         
         self._registry[ element ] = relative, offset, orientation
         return
 
 
     def update(self, element, offset, orientation, relative = None):
-        if not self._registry.has_key( element ):
-            raise RuntimeError, 'element %s has not been registered before' % element
+        if element not in self._registry:
+            raise RuntimeError('element %s has not been registered before' % element)
 
         self._registry[ element ] = relative, offset, orientation
         return
@@ -62,7 +62,7 @@ class LocationRegistry(object):
         if ret is None: 
             msg = "%s of %s: cannot find record for %s" % (
                 self.__class__.__name__, self._target, element )
-            raise ValueError, msg
+            raise ValueError(msg)
         return ret
 
     def coordinate_system(self): return self._coordinate_system

@@ -12,13 +12,13 @@
 #
 
 
-import units
+from . import units
 mm = units.length.mm
 cm = units.length.cm
 degree = units.angle.degree
 
 
-from SampleAssembly import SampleAssembly as base
+from .SampleAssembly import SampleAssembly as base
 
 class VanadiumPlate(base):
 
@@ -41,7 +41,7 @@ class VanadiumPlate(base):
         self.thickness = thickness
         self.darkAngle = darkAngle
 
-        import shapes
+        from . import shapes
         plate = shapes.plate( width, height, thickness )
         from sampleassembly.elements import powdersample
         #should not we have crystalline info here?

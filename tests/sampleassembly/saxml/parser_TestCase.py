@@ -38,7 +38,7 @@ class TestCase(base):
         self.assertEqual( phase.chemical_formula, 'Ni' )
         crystal = phase
         unitcell = crystal.unitcell
-        print unitcell
+        print(unitcell)
         return
 
 
@@ -49,12 +49,12 @@ class TestCase(base):
         from sampleassembly.saxml import parse_file
         sampleassembly = parse_file( 'Ni-withenviron.xml' )
         env = sampleassembly.getEnvironment()
-        print env
-        print env.attributes.temperature
+        print(env)
+        print(env.attributes.temperature)
         # print type(env.attributes.temperature)
         from pyre.units import temperature as T
-        print env.attributes.temperature/T.K
-        print env.temperature()
+        print(env.attributes.temperature/T.K)
+        print(env.temperature())
         return
 
 

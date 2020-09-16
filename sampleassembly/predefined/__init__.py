@@ -12,7 +12,7 @@
 #
 
 def vanadiumPlate( *args, **kwds ):
-    from VanadiumPlate import VanadiumPlate
+    from .VanadiumPlate import VanadiumPlate
     return VanadiumPlate( *args, **kwds )
 
 

@@ -12,7 +12,7 @@
 #
 
 
-from AbstractNode import AbstractNodeBase, debug
+from .AbstractNode import AbstractNodeBase, debug
 
 
 class Environment(AbstractNodeBase):

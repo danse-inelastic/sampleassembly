@@ -11,23 +11,24 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-from AbstractAttributeContainer import AbstractAttributeContainer
+from .AbstractAttributeContainer import AbstractAttributeContainer
 
 from pyre.inventory.Inventory import Inventory
 class AttributeContainer( Inventory, AbstractAttributeContainer ):
 
-    from Attribute import str
+    from .Attribute import str
     name = str( 'name' )
     
 
     def set(self, name, value):
-        exec "self.%s = value" % name
+        exec("self.%s = value" % name)
         return
 
 
     def get(self, name):
-        exec "value = self.%s" % name
-        return value
+        d = locals()
+        exec("value = self.%s" % name, d)
+        return d['value']
     
     
     def has(self, name):
@@ -49,13 +50,13 @@ class AttributeContainer( Inventory, AbstractAttributeContainer ):
 
 def test():
 
-    from AbstractAttributeContainer import TestCase as TC
+    from .AbstractAttributeContainer import TestCase as TC
 
     class TestCase(TC):
 
         def setUp(self):
             class AC(AttributeContainer):
-                from Attribute import str
+                from .Attribute import str
                 hello = str( 'hello' )
                 pass
 

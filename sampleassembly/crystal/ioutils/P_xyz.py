@@ -58,11 +58,14 @@ class P_xyz(StructureParser):
                 #try to get lattice vectors from description line
                 try:
                     latticeVecs = list(map(float, linefields[start+1]))
-                    assert len(latticeVecs)==9
+                    assert len(latticeVecs)==9, "Expect 9 numbers for the 3 basis vectors"
                     reshaped = [latticeVecs[0:3], latticeVecs[3:6], latticeVecs[6:9]]
                     stru.lattice = Lattice(base=reshaped) 
                     needsDescription = True
                 except:
+                    import traceback as tb
+                    import warnings
+                    warnings.warn("Failed to parse lattice vectors: \n{}".format(tb.format_exc()))
                     needsDescription = False
                     stru.description = lines[start+1].strip()
                 start += 2
@@ -198,10 +201,8 @@ class TestCase(unittest.TestCase):
         lattice = matter.Lattice(2*a, 2*a, 2*a, 90,90,90)
         atoms = [matter.Atom('Ni'), matter.Atom('Ni', (0.5,0.5,0.5))]
         struct = Structure(lattice=lattice, atoms=atoms) #, sgid=229)
-        
         print('original unitcell, cartesian coords')
         print('\n'.join(p.toLines(struct)))
-        
         print('original unitcell, fractional coords')
         print('\n'.join(p.toLines(struct, use_fractional_coordinates=1, latticeAsDescription=1)))
 
@@ -211,7 +212,21 @@ class TestCase(unittest.TestCase):
         # print '\n'.join(p.toLines(struct, use_primitive_unitcell=1, use_fractional_coordinates=1))
         return
 
+    def testReader(self):
+        lines = Al_xyz.strip().splitlines()
+        p = getParser()
+        struc = p.parseLines(lines)
+        lattice = struc.lattice
+        assert lattice.base[0][0] == 4.04932
+        return
 
+Al_xyz = '''4
+4.04932 0 0   0 4.04932 0   0 0 4.04932
+Al 0  0  0
+Al 0.5 0.5 0
+Al 0.5 0 0.5
+Al 0 0.5 0.5
+'''
 
 def main():
     unittest.main()

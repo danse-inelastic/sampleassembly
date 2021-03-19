@@ -65,7 +65,8 @@ class CrossSectionCalculator:
 
 import periodictable
 def xs(atom, type):
-    elem = getattr(periodictable, atom.element)
+    element = ''.join([c for c in atom.element if c.isalpha()])
+    elem = getattr(periodictable, element)
     return getattr(elem.neutron, type)
 
 def volume( a, b, c ):
